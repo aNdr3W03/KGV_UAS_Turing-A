@@ -64,7 +64,7 @@ int main(void)
 
     Dodecagon d1;
     d1.setTranslation(-0.4f, 0.0f, 0.0f);
-    d1.setScale(0.1f, 0.1f, 1.0f);
+    d1.setScale(0.2f, 0.2f, 1.0f);
     d1.setColor(0.8f, 0.0f, 0.8f, 1.0f);
 
 

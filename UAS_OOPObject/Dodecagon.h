@@ -18,7 +18,7 @@ class Dodecagon : public Shape
     private:
         float vertices[52] = {
              0.0f,    0.0f,   0.5f,   0.5f,
-             0.0f,    0.1f,   0.5f,   0.0f,
+             0.0f,    1.0f,   0.5f,   0.0f,
              0.5f,    0.866f, 0.75f,  0.067f,
              0.866f,  0.5f,   0.067f, 0.25f,
              1.0f,    0.0f,   1.0f,   0.5f,
