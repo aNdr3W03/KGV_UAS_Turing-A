@@ -49,7 +49,7 @@ int main(void)
     GLenum err = glewInit();
     
     Square s1;
-    s1.setTranslation(0.0f, 0.7f, 0.0f);
+    s1.setTranslation(-0.2f, 0.7f, 0.0f);
     s1.setScale(0.2f, 0.2f, 1.0f);
     s1.setColor(0.5f, 0.8f, 1.0f, 1.0f);
 
@@ -69,6 +69,9 @@ int main(void)
     D1.setColor(0.8f, 0.0f, 0.8f, 1.0f);
 
     Star S1;
+    S1.setTranslation(0.6f, 0.65f, 0.0f);
+    S1.setScale(0.3f, 0.3f, 1.0f);
+    S1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 
 
@@ -77,6 +80,7 @@ int main(void)
     shapes.push_back(&t1);
     shapes.push_back(&t2);
     shapes.push_back(&D1);
+    shapes.push_back(&S1);
     
 
 
