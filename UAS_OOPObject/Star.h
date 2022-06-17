@@ -29,7 +29,12 @@ class Star : public Shape
              -0.233f,  0.3f,   0.3835f, 0.35f
         };
 
-        unsigned int indexArr[36] = {
-            
+        unsigned int indexArr[18] = {
+            1, 6, 8,
+            1, 6, 4,
+            2, 3, 4,
+            4, 5, 6,
+            6, 7, 8,
+            8, 9, 10
         };
 };
