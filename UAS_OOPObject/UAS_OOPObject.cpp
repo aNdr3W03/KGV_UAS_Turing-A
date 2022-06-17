@@ -18,6 +18,7 @@
 #include "Square.h"
 #include "Triangle.h"
 #include "Dodecagon.h"
+#include "Star.h"
 
 using namespace std;
 
@@ -62,10 +63,12 @@ int main(void)
     t2.setScale(0.3f, 0.3f, 1.0f);
     t2.setColor(0.8f, 0.8f, 0.3f, 1.0f);
 
-    Dodecagon d1;
-    d1.setTranslation(-0.4f, 0.0f, 0.0f);
-    d1.setScale(0.2f, 0.2f, 1.0f);
-    d1.setColor(0.8f, 0.0f, 0.8f, 1.0f);
+    Dodecagon D1;
+    D1.setTranslation(-0.4f, 0.0f, 0.0f);
+    D1.setScale(0.2f, 0.2f, 1.0f);
+    D1.setColor(0.8f, 0.0f, 0.8f, 1.0f);
+
+    Star S1;
 
 
 
@@ -73,7 +76,7 @@ int main(void)
     shapes.push_back(&s1);
     shapes.push_back(&t1);
     shapes.push_back(&t2);
-    shapes.push_back(&d1);
+    shapes.push_back(&D1);
     
 
 
