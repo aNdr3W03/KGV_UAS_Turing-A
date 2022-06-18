@@ -143,6 +143,7 @@ int main(void)
 
     Star r1;
     r1.setTranslation(-0.4f, 0.8f, 0.0f);
+    r1.setRotation(degToRad(20.0f), 0.0f, 0.0f, 1.0f);
     r1.setScale(0.05f, 0.05f, 1.0f);
     r1.setColor(1.0f, 0.8f, 0.0f, 1.0f);
 
@@ -153,6 +154,7 @@ int main(void)
 
     Star r3;
     r3.setTranslation(0.7f, 0.7f, 0.0f);
+    r3.setRotation(degToRad(-10.0f), 0.0f, 0.0f, 1.0f);
     r3.setScale(0.03f, 0.03f, 1.0f);
     r3.setColor(1.0f, 0.8f, 0.0f, 1.0f);
 

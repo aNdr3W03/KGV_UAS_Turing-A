@@ -38,9 +38,9 @@ void Shape::setTranslation(float transX, float transY, float transZ)
     setTranslation(glm::vec3(transX, transY, transZ));
 }
 
-void Shape::setRotation(float angle, glm::vec3 axis)
+void Shape::setRotation(float angle, float x, float y, float z)
 {
-    transformationMat4x4 = glm::rotate(transformationMat4x4, angle, axis);
+    transformationMat4x4 = glm::rotate(transformationMat4x4, angle, glm::vec3(x, y, z));
 }
 
 void Shape::setScale(glm::vec3 newSclae)
