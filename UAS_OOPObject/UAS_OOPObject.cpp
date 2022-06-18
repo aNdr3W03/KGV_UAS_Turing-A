@@ -48,39 +48,111 @@ int main(void)
 
     GLenum err = glewInit();
     
-    Square s1;
-    s1.setTranslation(-0.2f, 0.7f, 0.0f);
-    s1.setScale(0.2f, 0.2f, 1.0f);
-    s1.setColor(0.5f, 0.8f, 1.0f, 1.0f);
+    Square s1; // Grass
+    s1.setTranslation(0.0f, -0.6f, 0.0f);
+    s1.setScale(1.0f, 0.4f, 1.0f);
+    s1.setColor(0.0f, 0.85f, 0.05f, 1.0f); // Green
 
-    Triangle t1;
-    t1.setTranslation(0.0f, -0.3f, 0.0f);
-    t1.setScale(0.1f, 0.1f, 1.0f);
-    t1.setColor(0.8f, 0.3f, 0.3f, 1.0f);
+    Square s2; // Road
+    s2.setTranslation(0.0f, -0.6f, 0.0f);
+    s2.setScale(1.0f, 0.3f, 1.0f);
+    s2.setColor(0.5f, 0.5f, 0.5f, 1.0f); // Gray
 
-    Triangle t2;
-    t2.setTranslation(0.4f, 0.0f, 0.0f);
-    t2.setScale(0.3f, 0.3f, 1.0f);
-    t2.setColor(0.8f, 0.8f, 0.3f, 1.0f);
 
-    Dodecagon D1;
-    D1.setTranslation(-0.4f, 0.0f, 0.0f);
-    D1.setScale(0.2f, 0.2f, 1.0f);
-    D1.setColor(0.8f, 0.0f, 0.8f, 1.0f);
 
-    Star S1;
-    S1.setTranslation(0.6f, 0.65f, 0.0f);
-    S1.setScale(0.3f, 0.3f, 1.0f);
-    S1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+    Square s3; // Car Body (Bottom)
+    s3.setTranslation(0.0f, -0.6f, 0.0f);
+    s3.setScale(0.3f, 0.05f, 1.0f);
+    s3.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+    Square s4; // Car Body (Above)
+    s4.setTranslation(-0.03f, -0.5f, 0.0f);
+    s4.setScale(0.15f, 0.05f, 1.0f);
+    s4.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+    Triangle t1; // Car Body (Rear)
+    t1.setTranslation(-0.18f, -0.5f, 0.0f);
+    t1.setScale(0.05f, 0.05f, 1.0f);
+    t1.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+    Triangle t2; // Car Body (Front)
+    t2.setTranslation(0.12f, -0.5f, 0.0f);
+    t2.setScale(0.05f, 0.05f, 1.0f);
+    t2.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+
+
+    Square s5; // Car Window
+    s5.setTranslation(-0.03f, -0.5f, 0.0f);
+    s5.setScale(0.13f, 0.03f, 1.0f);
+    s5.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+
+    Triangle t3; // Car Window (Rear)
+    t3.setTranslation(-0.16f, -0.5f, 0.0f);
+    t3.setScale(0.03f, 0.03f, 1.0f);
+    t3.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+
+    Triangle t4; // Car Window (Front)
+    t4.setTranslation(0.1f, -0.5f, 0.0f);
+    t4.setScale(0.03f, 0.03f, 1.0f);
+    t4.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+
+    Square s6; // Car Body (Window Divider)
+    s6.setTranslation(-0.03f, -0.5f, 0.0f);
+    s6.setScale(0.015f, 0.03f, 1.0f);
+    s6.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+
+
+    Dodecagon d1; // Rear Wheel
+    d1.setTranslation(-0.2f, -0.65f, 0.0f);
+    d1.setScale(0.05f, 0.05f, 1.0f);
+    d1.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+
+    Dodecagon d2; // Front Wheel
+    d2.setTranslation(0.2f, -0.65f, 0.0f);
+    d2.setScale(0.05f, 0.05f, 1.0f);
+    d2.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+
+    Dodecagon d3; // Rear Wheel Rim
+    d3.setTranslation(-0.2f, -0.65f, 0.0f);
+    d3.setScale(0.025f, 0.025f, 1.0f);
+    d3.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+    
+    Dodecagon d4; // Front Wheel Rim
+    d4.setTranslation(0.2f, -0.65f, 0.0f);
+    d4.setScale(0.025f, 0.025f, 1.0f);
+    d4.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+
+
+
+    Star r1;
+    r1.setTranslation(0.6f, 0.5f, 0.0f);
+    r1.setScale(0.3f, 0.3f, 1.0f);
+    r1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 
 
     vector<Shape*> shapes;
     shapes.push_back(&s1);
+    shapes.push_back(&s2);
+    shapes.push_back(&s3);
+    shapes.push_back(&s4);
+    shapes.push_back(&s5);
+
     shapes.push_back(&t1);
     shapes.push_back(&t2);
-    shapes.push_back(&D1);
-    shapes.push_back(&S1);
+    shapes.push_back(&t3);
+    shapes.push_back(&t4);
+
+    shapes.push_back(&s6);
+
+    shapes.push_back(&d1);
+    shapes.push_back(&d2);
+    shapes.push_back(&d3);
+    shapes.push_back(&d4);
+
+    shapes.push_back(&r1);
     
 
 
