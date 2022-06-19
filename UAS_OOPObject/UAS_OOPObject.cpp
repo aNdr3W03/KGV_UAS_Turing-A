@@ -18,6 +18,7 @@
 #include "Square.h"
 #include "Triangle.h"
 #include "Dodecagon.h"
+#include "Star.h"
 
 using namespace std;
 
@@ -46,34 +47,144 @@ int main(void)
     glfwMakeContextCurrent(window);
 
     GLenum err = glewInit();
+
+    Square s1; // Sky
+    s1.setTranslation(0.0f, 0.4f, 0.0f);
+    s1.setScale(1.0f, 0.6f, 1.0f);
+    s1.setColor(0.0f, 0.05f, 0.6f, 1.0f); // Dark Blue
+
+    Square s2; // Grass
+    s2.setTranslation(0.0f, -0.6f, 0.0f);
+    s2.setScale(1.0f, 0.4f, 1.0f);
+    s2.setColor(0.0f, 0.85f, 0.05f, 1.0f); // Green
+
+    Square s3; // Road
+    s3.setTranslation(0.0f, -0.6f, 0.0f);
+    s3.setScale(1.0f, 0.3f, 1.0f);
+    s3.setColor(0.5f, 0.5f, 0.5f, 1.0f); // Gray
+
+    Square s4; // Road Strip Top
+    s4.setTranslation(0.0f, -0.35f, 0.0f);
+    s4.setScale(1.0f, 0.01f, 1.0f);
+    s4.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
+
+    Square s5; // Road Strip Bottom
+    s5.setTranslation(0.0f, -0.85f, 0.0f);
+    s5.setScale(1.0f, 0.01f, 1.0f);
+    s5.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
+
+
+
+    Square s6; // Car Body (Bottom)
+    s6.setTranslation(0.0f, -0.6f, 0.0f);
+    s6.setScale(0.3f, 0.05f, 1.0f);
+    s6.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+    Square s7; // Car Body (Above)
+    s7.setTranslation(-0.03f, -0.5f, 0.0f);
+    s7.setScale(0.15f, 0.05f, 1.0f);
+    s7.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+    Triangle t1; // Car Body (Rear)
+    t1.setTranslation(-0.18f, -0.5f, 0.0f);
+    t1.setScale(0.05f, 0.05f, 1.0f);
+    t1.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+    Triangle t2; // Car Body (Front)
+    t2.setTranslation(0.12f, -0.5f, 0.0f);
+    t2.setScale(0.05f, 0.05f, 1.0f);
+    t2.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+
+
+    Square s8; // Car Window
+    s8.setTranslation(-0.03f, -0.5f, 0.0f);
+    s8.setScale(0.13f, 0.03f, 1.0f);
+    s8.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+
+    Triangle t3; // Car Window (Rear)
+    t3.setTranslation(-0.16f, -0.5f, 0.0f);
+    t3.setScale(0.03f, 0.03f, 1.0f);
+    t3.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+
+    Triangle t4; // Car Window (Front)
+    t4.setTranslation(0.1f, -0.5f, 0.0f);
+    t4.setScale(0.03f, 0.03f, 1.0f);
+    t4.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+
+    Square s9; // Car Body (Window Divider)
+    s9.setTranslation(-0.03f, -0.5f, 0.0f);
+    s9.setScale(0.015f, 0.03f, 1.0f);
+    s9.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+
+
+
+    Dodecagon d1; // Rear Wheel
+    d1.setTranslation(-0.2f, -0.65f, 0.0f);
+    d1.setScale(0.05f, 0.05f, 1.0f);
+    d1.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+
+    Dodecagon d2; // Front Wheel
+    d2.setTranslation(0.2f, -0.65f, 0.0f);
+    d2.setScale(0.05f, 0.05f, 1.0f);
+    d2.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+
+    Dodecagon d3; // Rear Wheel Rim
+    d3.setTranslation(-0.2f, -0.65f, 0.0f);
+    d3.setScale(0.025f, 0.025f, 1.0f);
+    d3.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
     
-    Square s1;
-    s1.setTranslation(0.0f, 0.7f, 0.0f);
-    s1.setScale(0.2f, 0.2f, 1.0f);
-    s1.setColor(0.5f, 0.8f, 1.0f, 1.0f);
+    Dodecagon d4; // Front Wheel Rim
+    d4.setTranslation(0.2f, -0.65f, 0.0f);
+    d4.setScale(0.025f, 0.025f, 1.0f);
+    d4.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
 
-    Triangle t1;
-    t1.setTranslation(0.0f, -0.3f, 0.0f);
-    t1.setScale(0.1f, 0.1f, 1.0f);
-    t1.setColor(0.8f, 0.3f, 0.3f, 1.0f);
 
-    Triangle t2;
-    t2.setTranslation(0.4f, 0.0f, 0.0f);
-    t2.setScale(0.3f, 0.3f, 1.0f);
-    t2.setColor(0.8f, 0.8f, 0.3f, 1.0f);
 
-    Dodecagon d1;
-    d1.setTranslation(-0.4f, 0.0f, 0.0f);
-    d1.setScale(0.1f, 0.1f, 1.0f);
-    d1.setColor(0.8f, 0.0f, 0.8f, 1.0f);
+    Star r1;
+    r1.setTranslation(-0.4f, 0.8f, 0.0f);
+    r1.setRotation(degToRad(20.0f), 0.0f, 0.0f, 1.0f);
+    r1.setScale(0.05f, 0.05f, 1.0f);
+    r1.setColor(1.0f, 0.8f, 0.0f, 1.0f);
+
+    Star r2;
+    r2.setTranslation(0.5f, 0.6f, 0.0f);
+    r2.setScale(0.02f, 0.02f, 1.0f);
+    r2.setColor(1.0f, 0.8f, 0.0f, 1.0f);
+
+    Star r3;
+    r3.setTranslation(0.7f, 0.7f, 0.0f);
+    r3.setRotation(degToRad(-10.0f), 0.0f, 0.0f, 1.0f);
+    r3.setScale(0.03f, 0.03f, 1.0f);
+    r3.setColor(1.0f, 0.8f, 0.0f, 1.0f);
 
 
 
     vector<Shape*> shapes;
     shapes.push_back(&s1);
+    shapes.push_back(&s2);
+    shapes.push_back(&s3);
+    shapes.push_back(&s4);
+    shapes.push_back(&s5);
+
+    shapes.push_back(&s6);
+    shapes.push_back(&s7);
     shapes.push_back(&t1);
     shapes.push_back(&t2);
+
+    shapes.push_back(&s8);
+    shapes.push_back(&t3);
+    shapes.push_back(&t4);
+    shapes.push_back(&s9);
+
     shapes.push_back(&d1);
+    shapes.push_back(&d2);
+    shapes.push_back(&d3);
+    shapes.push_back(&d4);
+
+    shapes.push_back(&r1);
+    shapes.push_back(&r2);
+    shapes.push_back(&r3);
     
 
 

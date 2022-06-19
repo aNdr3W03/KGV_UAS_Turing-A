@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dodecagon.cpp" />
+    <ClCompile Include="Star.cpp" />
     <ClCompile Include="UAS_OOPObject.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Square.cpp" />
@@ -438,6 +439,7 @@
     <ClInclude Include="Dodecagon.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Square.h" />
+    <ClInclude Include="Star.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Util.h" />

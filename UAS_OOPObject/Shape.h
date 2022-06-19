@@ -16,7 +16,7 @@ class Shape
         void setTranslation(glm::vec3 newTranslation);
         void setTranslation(float transX, float transY, float transZ);
 
-        void setRotation(float angle, glm::vec3 axis);
+        void setRotation(float angle, float x, float y, float z);
 
         void setScale(glm::vec3 newScale);
         void setScale(float scaleX, float scaleY, float scaleZ);
