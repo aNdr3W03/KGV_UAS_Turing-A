@@ -31,6 +31,15 @@ vector<Triangle>  tri;
 vector<Dodecagon> dod;
 vector<Star>      str;
 
+float currentTime = 0.0f;
+float deltaTime = 0.0f;
+float lastTime = 0.0f;
+float timer = lastTime;
+
+float counter = 0.0f;
+float hour = 0.0f;
+float mod = 1.0f;
+
 float degToRad(float rotationDeg)
 {
     return rotationDeg * 3.14159 / 180;
@@ -332,7 +341,44 @@ int main(void)
     t.setScale(0.02f, 0.3f, 1.0f);
     t.setColor(0.6f, 0.6f, 0.6f, 1.0f); // Gray
     tri.push_back(t); // tri[5]
+
+
     
+    s = Square(); // Windmill Blade Top
+    s.setTranslation(-0.3f, 0.46f, 0.0f);
+    s.setRotation(degToRad(0), 0.0f, 0.0f, 1.0f);
+    s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+    s.setScale(0.04f, 0.5f, 1.0f);
+    s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+    s.setScale(0.2f, 0.2f, 1.0f);
+    sqr.push_back(s); // sqr[10]
+
+    s = Square(); // Windmill Blade Right
+    s.setTranslation(-0.3f, 0.46f, 0.0f);
+    s.setRotation(degToRad(-120), 0.0f, 0.0f, 1.0f);
+    s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+    s.setScale(0.04f, 0.5f, 1.0f);
+    s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+    s.setScale(0.2f, 0.2f, 1.0f);
+    sqr.push_back(s); // sqr[11]
+
+    s = Square(); // Windmill Blade Left
+    s.setTranslation(-0.3f, 0.46f, 0.0f);
+    s.setRotation(degToRad(-240), 0.0f, 0.0f, 1.0f);
+    s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+    s.setScale(0.04f, 0.5f, 1.0f);
+    s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+    s.setScale(0.2f, 0.2f, 1.0f);
+    sqr.push_back(s); // sqr[12]
+
+
+
+    d = Dodecagon(); // Windmill Rotor
+    d.setTranslation(-0.3f, 0.46f, 0.0f);
+    d.setScale(0.035f, 0.035f, 1.0f);
+    d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+    dod.push_back(d); // dod[4]
+
 
 
     string vertexString = readFile("vertex.vert");
@@ -372,7 +418,7 @@ int main(void)
         glUseProgram(program);
 
         /* Draw here */
-        for (int i = 0; i < sqr.size(); i++) // All Square
+        for (int i = 0; i < sqr.size() - 3; i++) // All Square
         {
             glUniform4fv(uColor, 1, &sqr[i].getColor()[0]);
             glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &sqr[i].getTransformationMat4x4()[0][0]);
@@ -386,6 +432,18 @@ int main(void)
             tri[i].draw();
         }
 
+        glUniform4fv(uColor, 1, &sqr[10].getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &sqr[10].getTransformationMat4x4()[0][0]);
+        sqr[10].draw();
+
+        glUniform4fv(uColor, 1, &sqr[11].getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &sqr[11].getTransformationMat4x4()[0][0]);
+        sqr[11].draw();
+
+        glUniform4fv(uColor, 1, &sqr[12].getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &sqr[12].getTransformationMat4x4()[0][0]);
+        sqr[12].draw();
+
         for (int i = 0; i < dod.size(); i++) // All Dodecagon
         {
             glUniform4fv(uColor, 1, &dod[i].getColor()[0]);
@@ -398,6 +456,42 @@ int main(void)
             glUniform4fv(uColor, 1, &str[i].getColor()[0]);
             glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &str[i].getTransformationMat4x4()[0][0]);
             str[i].draw();
+        }
+
+        currentTime = glfwGetTime();
+        deltaTime   = currentTime - lastTime;
+        lastTime    = currentTime;
+
+        if (glfwGetTime() - timer > 1.0)
+        {
+            timer += 0.1;
+
+            s = Square(); // Windmill Blade Top
+            s.setTranslation(-0.3f, 0.46f, 0.0f);
+            s.setRotation(degToRad(-30 * timer), 0.0f, 0.0f, 1.0f);
+            s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+            s.setScale(0.04f, 0.5f, 1.0f);
+            s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+            s.setScale(0.2f, 0.2f, 1.0f);
+            sqr[10] = s;
+
+            s = Square(); // Windmill Blade Right
+            s.setTranslation(-0.3, 0.46f, 0.0f);
+            s.setRotation(degToRad(-120 + (-30 * timer)), 0.0f, 0.0f, 1.0f);
+            s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+            s.setScale(0.04f, 0.5f, 1.0f);
+            s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+            s.setScale(0.2f, 0.2f, 1.0f);
+            sqr[11] = s;
+
+            s = Square(); // Windmill Blade Left
+            s.setTranslation(-0.3, 0.46f, 0.0f);
+            s.setRotation(degToRad(-240 + (-30 * timer)), 0.0f, 0.0f, 1.0f);
+            s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+            s.setScale(0.04f, 0.5f, 1.0f);
+            s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+            s.setScale(0.2f, 0.2f, 1.0f);
+            sqr[12] = s;
         }
 
         /* Swap front and back buffers */
