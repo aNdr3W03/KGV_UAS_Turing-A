@@ -22,39 +22,133 @@
 
 using namespace std;
 
-float carX = 0.0f;
-float carY = 0.0f;
+float carMOV = 0.05f;
+float carX   = 0.0f;
+float carY   = 0.0f;
+
+vector<Square>    sqr;
+vector<Triangle>  tri;
+vector<Dodecagon> dod;
+vector<Star>      str;
 
 float degToRad(float rotationDeg)
 {
     return rotationDeg * 3.14159 / 180;
 }
 
-// Input Handler
+/* Input Handler */
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if (key == GLFW_KEY_UP && action == GLFW_PRESS)
-    {
-        carY += 0.01f;
-        cout << "Car UP    = " << carY << "\n";
-    }
+    Square    s;
+    Triangle  t;
+    Dodecagon d;
+    Star      r;
 
-    if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
+    if (action == GLFW_PRESS)
     {
-        carY -= 0.01f;
-        cout << "Car DOWN  = " << carY << "\n";
-    }
+        if (key == GLFW_KEY_U)
+        {
+            carY += carMOV;
+            cout << "Car UP    = " << carY << "\n";
+        }
+        
+        if (key == GLFW_KEY_J)
+        {
+            carY -= carMOV;
+            cout << "Car DOWN  = " << carY << "\n";
+        }
 
-    if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
-    {
-        carX -= 0.01f;
-        cout << "Car LEFT  = " << carX << "\n";
-    }
+        if (key == GLFW_KEY_H)
+        {
+            carX -= carMOV;
+            cout << "Car LEFT  = " << carX << "\n";
+        }
 
-    if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
-    {
-        carX += 0.01f;
-        cout << "Car RIGHT = " << carX << "\n";
+        if (key == GLFW_KEY_K)
+        {
+            carX += carMOV;
+            cout << "Car RIGHT = " << carX << "\n";
+        }
+
+        /* Start of Car Movement */
+
+        s = Square(); // Car Body (Bottom)
+        s.setTranslation(0.0f + carX, -0.6f + carY, 0.0f);
+        s.setScale(0.3f, 0.05f, 1.0f);
+        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        sqr[4] = s;
+
+        s = Square(); // Car Body (Above)
+        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
+        s.setScale(0.15f, 0.05f, 1.0f);
+        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        sqr[5] = s;
+
+        t = Triangle(); // Car Body (Rear)
+        t.setTranslation(-0.18f + carX, -0.5f + carY, 0.0f);
+        t.setScale(0.05f, 0.05f, 1.0f);
+        t.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        tri[0] = t;
+
+        t = Triangle(); // Car Body (Front)
+        t.setTranslation(0.12f + carX, -0.5f + carY, 0.0f);
+        t.setScale(0.05f, 0.05f, 1.0f);
+        t.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        tri[1] = t;
+
+
+
+        s = Square(); // Car Window
+        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
+        s.setScale(0.13f, 0.03f, 1.0f);
+        s.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+        sqr[6] = s;
+
+        t = Triangle(); // Car Window (Rear)
+        t.setTranslation(-0.16f + carX, -0.5f + carY, 0.0f);
+        t.setScale(0.03f, 0.03f, 1.0f);
+        t.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+        tri[2] = t;
+
+        t = Triangle(); // Car Window (Front)
+        t.setTranslation(0.1f + carX, -0.5f + carY, 0.0f);
+        t.setScale(0.03f, 0.03f, 1.0f);
+        t.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+        tri[3] = t;
+
+        s = Square(); // Car Body (Window Divider)
+        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
+        s.setScale(0.015f, 0.03f, 1.0f);
+        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        sqr[7] = s;
+
+
+
+        d = Dodecagon(); // Rear Wheel
+        d.setTranslation(-0.2f + carX, -0.65f + carY, 0.0f);
+        d.setScale(0.05f, 0.05f, 1.0f);
+        d.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+        dod[0] = d;
+
+        d = Dodecagon(); // Front Wheel
+        d.setTranslation(0.2f + carX, -0.65f + carY, 0.0f);
+        d.setScale(0.05f, 0.05f, 1.0f);
+        d.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+        dod[1] = d;
+
+        d = Dodecagon(); // Rear Wheel Rim
+        d.setTranslation(-0.2f + carX, -0.65f + carY, 0.0f);
+        d.setScale(0.025f, 0.025f, 1.0f);
+        d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+        dod[2] = d;
+
+        d = Dodecagon(); // Front Wheel Rim
+        d.setTranslation(0.2f + carX, -0.65f + carY, 0.0f);
+        d.setScale(0.025f, 0.025f, 1.0f);
+        d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+        dod[3] = d;
+
+        /* End of Car Movement */
     }
 }
 
@@ -81,11 +175,6 @@ int main(void)
     glfwSetKeyCallback(window, keyCallback);
 
     GLenum err = glewInit();
-
-    vector<Square>    sqr;
-    vector<Triangle>  tri;
-    vector<Dodecagon> dod;
-    vector<Star>      str;
 
     Square    s;
     Triangle  t;
@@ -282,84 +371,6 @@ int main(void)
             glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &str[i].getTransformationMat4x4()[0][0]);
             str[i].draw();
         }
-
-        /* Start of Car Movement */
-        s = Square(); // Car Body (Bottom)
-        s.setTranslation(0.0f + carX, -0.6f + carY, 0.0f);
-        s.setScale(0.3f, 0.05f, 1.0f);
-        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-        sqr[4] = s;
-
-        s = Square(); // Car Body (Above)
-        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
-        s.setScale(0.15f, 0.05f, 1.0f);
-        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-        sqr[5] = s;
-
-        t = Triangle(); // Car Body (Rear)
-        t.setTranslation(-0.18f + carX, -0.5f + carY, 0.0f);
-        t.setScale(0.05f, 0.05f, 1.0f);
-        t.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-        tri[0] = t;
-
-        t = Triangle(); // Car Body (Front)
-        t.setTranslation(0.12f + carX, -0.5f + carY, 0.0f);
-        t.setScale(0.05f, 0.05f, 1.0f);
-        t.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-        tri[1] = t;
-
-
-
-        s = Square(); // Car Window
-        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
-        s.setScale(0.13f, 0.03f, 1.0f);
-        s.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
-        sqr[6] = s;
-
-        t = Triangle(); // Car Window (Rear)
-        t.setTranslation(-0.16f + carX, -0.5f + carY, 0.0f);
-        t.setScale(0.03f, 0.03f, 1.0f);
-        t.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
-        tri[2] = t;
-
-        t = Triangle(); // Car Window (Front)
-        t.setTranslation(0.1f + carX, -0.5f + carY, 0.0f);
-        t.setScale(0.03f, 0.03f, 1.0f);
-        t.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
-        tri[3] = t;
-
-        s = Square(); // Car Body (Window Divider)
-        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
-        s.setScale(0.015f, 0.03f, 1.0f);
-        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-        sqr[7] = s;
-
-
-
-        d = Dodecagon(); // Rear Wheel
-        d.setTranslation(-0.2f + carX, -0.65f + carY, 0.0f);
-        d.setScale(0.05f, 0.05f, 1.0f);
-        d.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
-        dod[0] = d;
-
-        d = Dodecagon(); // Front Wheel
-        d.setTranslation(0.2f + carX, -0.65f + carY, 0.0f);
-        d.setScale(0.05f, 0.05f, 1.0f);
-        d.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
-        dod[1] = d;
-
-        d = Dodecagon(); // Rear Wheel Rim
-        d.setTranslation(-0.2f + carX, -0.65f + carY, 0.0f);
-        d.setScale(0.025f, 0.025f, 1.0f);
-        d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
-        dod[2] = d;
-
-        d = Dodecagon(); // Front Wheel Rim
-        d.setTranslation(0.2f + carX, -0.65f + carY, 0.0f);
-        d.setScale(0.025f, 0.025f, 1.0f);
-        d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
-        dod[3] = d;
-        /* End of Car Movement */
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
