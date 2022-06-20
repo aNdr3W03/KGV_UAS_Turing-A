@@ -48,25 +48,27 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     {
         if (key == GLFW_KEY_U)
         {
-            carY += carMOV;
+            if (carY < 0.3f) carY += carMOV;
             cout << "Car UP    = " << carY << "\n";
         }
         
         if (key == GLFW_KEY_J)
         {
-            carY -= carMOV;
+            if (carY > -0.1f) carY -= carMOV;
             cout << "Car DOWN  = " << carY << "\n";
         }
 
         if (key == GLFW_KEY_H)
         {
             carX -= carMOV;
+            if (carX <= -1.3f) carX = 1.3f;
             cout << "Car LEFT  = " << carX << "\n";
         }
 
         if (key == GLFW_KEY_K)
         {
             carX += carMOV;
+            if (carX >= 1.3f) carX = -1.3f;
             cout << "Car RIGHT = " << carX << "\n";
         }
 
