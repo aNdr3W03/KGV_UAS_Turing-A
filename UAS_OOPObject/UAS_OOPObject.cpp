@@ -22,9 +22,141 @@
 
 using namespace std;
 
+float carMOV = 0.05f;
+float carX   = 0.0f;
+float carY   = 0.0f;
+
+float currentTime = 0.0f;
+float deltaTime   = 0.0f;
+float lastTime    = 0.0f;
+float timer       = 0.0f;
+
+vector<Square>    sqr;
+vector<Triangle>  tri;
+vector<Dodecagon> dod;
+vector<Star>      str;
+
 float degToRad(float rotationDeg)
 {
     return rotationDeg * 3.14159 / 180;
+}
+
+/* Input Handler */
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    Square    s;
+    Triangle  t;
+    Dodecagon d;
+    Star      r;
+
+    if (action == GLFW_PRESS)
+    {
+        if (key == GLFW_KEY_U)
+        {
+            if (carY < 0.3f) carY += carMOV;
+            cout << "Car UP    = " << carY << "\n";
+        }
+        
+        if (key == GLFW_KEY_J)
+        {
+            if (carY > -0.1f) carY -= carMOV;
+            cout << "Car DOWN  = " << carY << "\n";
+        }
+
+        if (key == GLFW_KEY_H)
+        {
+            carX -= carMOV;
+            if (carX <= -1.3f) carX = 1.3f;
+            cout << "Car LEFT  = " << carX << "\n";
+        }
+
+        if (key == GLFW_KEY_K)
+        {
+            carX += carMOV;
+            if (carX >= 1.3f) carX = -1.3f;
+            cout << "Car RIGHT = " << carX << "\n";
+        }
+
+        /* Start of Car Movement */
+
+        s = Square(); // Car Body (Bottom)
+        s.setTranslation(0.0f + carX, -0.6f + carY, 0.0f);
+        s.setScale(0.3f, 0.05f, 1.0f);
+        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        sqr[9] = s;
+
+        s = Square(); // Car Body (Above)
+        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
+        s.setScale(0.15f, 0.05f, 1.0f);
+        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        sqr[10] = s;
+
+        t = Triangle(); // Car Body (Rear)
+        t.setTranslation(-0.18f + carX, -0.5f + carY, 0.0f);
+        t.setScale(0.05f, 0.05f, 1.0f);
+        t.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        tri[2] = t;
+
+        t = Triangle(); // Car Body (Front)
+        t.setTranslation(0.12f + carX, -0.5f + carY, 0.0f);
+        t.setScale(0.05f, 0.05f, 1.0f);
+        t.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        tri[3] = t;
+
+
+
+        s = Square(); // Car Window
+        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
+        s.setScale(0.13f, 0.03f, 1.0f);
+        s.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+        sqr[11] = s;
+
+        t = Triangle(); // Car Window (Rear)
+        t.setTranslation(-0.16f + carX, -0.5f + carY, 0.0f);
+        t.setScale(0.03f, 0.03f, 1.0f);
+        t.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+        tri[4] = t;
+
+        t = Triangle(); // Car Window (Front)
+        t.setTranslation(0.1f + carX, -0.5f + carY, 0.0f);
+        t.setScale(0.03f, 0.03f, 1.0f);
+        t.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+        tri[5] = t;
+
+        s = Square(); // Car Body (Window Divider)
+        s.setTranslation(-0.03f + carX, -0.5f + carY, 0.0f);
+        s.setScale(0.015f, 0.03f, 1.0f);
+        s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+        sqr[12] = s;
+
+
+
+        d = Dodecagon(); // Rear Wheel
+        d.setTranslation(-0.2f + carX, -0.65f + carY, 0.0f);
+        d.setScale(0.05f, 0.05f, 1.0f);
+        d.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+        dod[1] = d;
+
+        d = Dodecagon(); // Front Wheel
+        d.setTranslation(0.2f + carX, -0.65f + carY, 0.0f);
+        d.setScale(0.05f, 0.05f, 1.0f);
+        d.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+        dod[2] = d;
+
+        d = Dodecagon(); // Rear Wheel Rim
+        d.setTranslation(-0.2f + carX, -0.65f + carY, 0.0f);
+        d.setScale(0.025f, 0.025f, 1.0f);
+        d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+        dod[3] = d;
+
+        d = Dodecagon(); // Front Wheel Rim
+        d.setTranslation(0.2f + carX, -0.65f + carY, 0.0f);
+        d.setScale(0.025f, 0.025f, 1.0f);
+        d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+        dod[4] = d;
+
+        /* End of Car Movement */
+    }
 }
 
 int main(void)
@@ -46,146 +178,209 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
+    /* GLFW Key Callback Input Handler */
+    glfwSetKeyCallback(window, keyCallback);
+
     GLenum err = glewInit();
 
-    Square s1; // Sky
-    s1.setTranslation(0.0f, 0.4f, 0.0f);
-    s1.setScale(1.0f, 0.6f, 1.0f);
-    s1.setColor(0.0f, 0.05f, 0.6f, 1.0f); // Dark Blue
+    Square    s;
+    Triangle  t;
+    Dodecagon d;
+    Star      r;
 
-    Square s2; // Grass
-    s2.setTranslation(0.0f, -0.6f, 0.0f);
-    s2.setScale(1.0f, 0.4f, 1.0f);
-    s2.setColor(0.0f, 0.85f, 0.05f, 1.0f); // Green
+    /* Draw Grass, Road, and Stars */
+    s = Square(); // Grass
+    s.setTranslation(0.0f, -0.6f, 0.0f);
+    s.setScale(1.0f, 0.4f, 1.0f);
+    s.setColor(0.0f, 0.85f, 0.05f, 1.0f); // Green
+    sqr.push_back(s); // sqr[0]
 
-    Square s3; // Road
-    s3.setTranslation(0.0f, -0.6f, 0.0f);
-    s3.setScale(1.0f, 0.3f, 1.0f);
-    s3.setColor(0.5f, 0.5f, 0.5f, 1.0f); // Gray
+    s = Square(); // Road
+    s.setTranslation(0.0f, -0.6f, 0.0f);
+    s.setScale(1.0f, 0.3f, 1.0f);
+    s.setColor(0.5f, 0.5f, 0.5f, 1.0f); // Gray
+    sqr.push_back(s); // sqr[1]
 
-    Square s4; // Road Strip Top
-    s4.setTranslation(0.0f, -0.35f, 0.0f);
-    s4.setScale(1.0f, 0.01f, 1.0f);
-    s4.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
+    s = Square(); // Road Strip Top
+    s.setTranslation(0.0f, -0.35f, 0.0f);
+    s.setScale(1.0f, 0.01f, 1.0f);
+    s.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
+    sqr.push_back(s); // sqr[2]
 
-    Square s5; // Road Strip Bottom
-    s5.setTranslation(0.0f, -0.85f, 0.0f);
-    s5.setScale(1.0f, 0.01f, 1.0f);
-    s5.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
-
-
-
-    Square s6; // Car Body (Bottom)
-    s6.setTranslation(0.0f, -0.6f, 0.0f);
-    s6.setScale(0.3f, 0.05f, 1.0f);
-    s6.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-
-    Square s7; // Car Body (Above)
-    s7.setTranslation(-0.03f, -0.5f, 0.0f);
-    s7.setScale(0.15f, 0.05f, 1.0f);
-    s7.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-
-    Triangle t1; // Car Body (Rear)
-    t1.setTranslation(-0.18f, -0.5f, 0.0f);
-    t1.setScale(0.05f, 0.05f, 1.0f);
-    t1.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-
-    Triangle t2; // Car Body (Front)
-    t2.setTranslation(0.12f, -0.5f, 0.0f);
-    t2.setScale(0.05f, 0.05f, 1.0f);
-    t2.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+    s = Square(); // Road Strip Bottom
+    s.setTranslation(0.0f, -0.85f, 0.0f);
+    s.setScale(1.0f, 0.01f, 1.0f);
+    s.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
+    sqr.push_back(s); // sqr[3]
 
 
 
-    Square s8; // Car Window
-    s8.setTranslation(-0.03f, -0.5f, 0.0f);
-    s8.setScale(0.13f, 0.03f, 1.0f);
-    s8.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+    r = Star(); // Star
+    r.setTranslation(-0.4f, 0.8f, 0.0f);
+    r.setRotation(degToRad(20.0f), 0.0f, 0.0f, 1.0f);
+    r.setScale(0.05f, 0.05f, 1.0f);
+    r.setColor(1.0f, 0.8f, 0.0f, 1.0f); // Golden Yellow
+    str.push_back(r); // str[0]
 
-    Triangle t3; // Car Window (Rear)
-    t3.setTranslation(-0.16f, -0.5f, 0.0f);
-    t3.setScale(0.03f, 0.03f, 1.0f);
-    t3.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+    r = Star(); // Star
+    r.setTranslation(0.5f, 0.6f, 0.0f);
+    r.setScale(0.02f, 0.02f, 1.0f);
+    r.setColor(1.0f, 0.8f, 0.0f, 1.0f); // Golden Yellow
+    str.push_back(r); // str[1]
 
-    Triangle t4; // Car Window (Front)
-    t4.setTranslation(0.1f, -0.5f, 0.0f);
-    t4.setScale(0.03f, 0.03f, 1.0f);
-    t4.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
-
-    Square s9; // Car Body (Window Divider)
-    s9.setTranslation(-0.03f, -0.5f, 0.0f);
-    s9.setScale(0.015f, 0.03f, 1.0f);
-    s9.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-
+    r = Star(); // Star
+    r.setTranslation(0.7f, 0.7f, 0.0f);
+    r.setRotation(degToRad(-10.0f), 0.0f, 0.0f, 1.0f);
+    r.setScale(0.03f, 0.03f, 1.0f);
+    r.setColor(1.0f, 0.8f, 0.0f, 1.0f); // Golden Yellow
+    str.push_back(r); // str[2]
+    /* Draw Grass, Road, and Stars */
 
 
-    Dodecagon d1; // Rear Wheel
-    d1.setTranslation(-0.2f, -0.65f, 0.0f);
-    d1.setScale(0.05f, 0.05f, 1.0f);
-    d1.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
-
-    Dodecagon d2; // Front Wheel
-    d2.setTranslation(0.2f, -0.65f, 0.0f);
-    d2.setScale(0.05f, 0.05f, 1.0f);
-    d2.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
-
-    Dodecagon d3; // Rear Wheel Rim
-    d3.setTranslation(-0.2f, -0.65f, 0.0f);
-    d3.setScale(0.025f, 0.025f, 1.0f);
-    d3.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
     
-    Dodecagon d4; // Front Wheel Rim
-    d4.setTranslation(0.2f, -0.65f, 0.0f);
-    d4.setScale(0.025f, 0.025f, 1.0f);
-    d4.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+    /* Draw Windmill */
+    s = Square(); // Windmill Base
+    s.setTranslation(-0.3f, -0.17f, 0.0f);
+    s.setScale(0.12f, 0.03f, 0.0f);
+    s.setColor(0.4f, 0.4f, 0.4f, 1.0f); // Dark Gray
+    sqr.push_back(s); // sqr[4]
 
-
-
-    Star r1;
-    r1.setTranslation(-0.4f, 0.8f, 0.0f);
-    r1.setRotation(degToRad(20.0f), 0.0f, 0.0f, 1.0f);
-    r1.setScale(0.05f, 0.05f, 1.0f);
-    r1.setColor(1.0f, 0.8f, 0.0f, 1.0f);
-
-    Star r2;
-    r2.setTranslation(0.5f, 0.6f, 0.0f);
-    r2.setScale(0.02f, 0.02f, 1.0f);
-    r2.setColor(1.0f, 0.8f, 0.0f, 1.0f);
-
-    Star r3;
-    r3.setTranslation(0.7f, 0.7f, 0.0f);
-    r3.setRotation(degToRad(-10.0f), 0.0f, 0.0f, 1.0f);
-    r3.setScale(0.03f, 0.03f, 1.0f);
-    r3.setColor(1.0f, 0.8f, 0.0f, 1.0f);
-
-
-
-    vector<Shape*> shapes;
-    shapes.push_back(&s1);
-    shapes.push_back(&s2);
-    shapes.push_back(&s3);
-    shapes.push_back(&s4);
-    shapes.push_back(&s5);
-
-    shapes.push_back(&s6);
-    shapes.push_back(&s7);
-    shapes.push_back(&t1);
-    shapes.push_back(&t2);
-
-    shapes.push_back(&s8);
-    shapes.push_back(&t3);
-    shapes.push_back(&t4);
-    shapes.push_back(&s9);
-
-    shapes.push_back(&d1);
-    shapes.push_back(&d2);
-    shapes.push_back(&d3);
-    shapes.push_back(&d4);
-
-    shapes.push_back(&r1);
-    shapes.push_back(&r2);
-    shapes.push_back(&r3);
+    s = Square(); // Windmill Tower
+    s.setTranslation(-0.3f, 0.16f, 0.0f);
+    s.setScale(0.02f, 0.3f, 0.0f);
+    s.setColor(0.6f, 0.6f, 0.6f, 1.0f); // Gray
+    sqr.push_back(s); // sqr[5]
     
+    t = Triangle(); // Windmill Tower Left
+    t.setTranslation(-0.32f, 0.16f, 0.0f);
+    t.setScale(0.02f, 0.3f, 1.0f);
+    t.setColor(0.6f, 0.6f, 0.6f, 1.0f); // Gray
+    tri.push_back(t); // tri[0]
+
+    t = Triangle(); // Windmill Tower Right
+    t.setTranslation(-0.28f, 0.16f, 0.0f);
+    t.setScale(0.02f, 0.3f, 1.0f);
+    t.setColor(0.6f, 0.6f, 0.6f, 1.0f); // Gray
+    tri.push_back(t); // tri[1]
+
+
+
+    s = Square(); // Windmill Blade Top
+    s.setTranslation(-0.3f, 0.46f, 0.0f);
+    s.setRotation(degToRad(0), 0.0f, 0.0f, 1.0f);
+    s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+    s.setScale(0.04f, 0.5f, 1.0f);
+    s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+    s.setScale(0.2f, 0.2f, 1.0f);
+    sqr.push_back(s); // sqr[6]
+
+    s = Square(); // Windmill Blade Right
+    s.setTranslation(-0.3f, 0.46f, 0.0f);
+    s.setRotation(degToRad(-120), 0.0f, 0.0f, 1.0f);
+    s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+    s.setScale(0.04f, 0.5f, 1.0f);
+    s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+    s.setScale(0.2f, 0.2f, 1.0f);
+    sqr.push_back(s); // sqr[7]
+
+    s = Square(); // Windmill Blade Left
+    s.setTranslation(-0.3f, 0.46f, 0.0f);
+    s.setRotation(degToRad(-240), 0.0f, 0.0f, 1.0f);
+    s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+    s.setScale(0.04f, 0.5f, 1.0f);
+    s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+    s.setScale(0.2f, 0.2f, 1.0f);
+    sqr.push_back(s); // sqr[8]
+
+
+
+    d = Dodecagon(); // Windmill Rotor
+    d.setTranslation(-0.3f, 0.46f, 0.0f);
+    d.setScale(0.035f, 0.035f, 1.0f);
+    d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+    dod.push_back(d); // dod[1]
+    /* Draw Windmill */
+
+
+
+    /* Draw Car */
+    s = Square(); // Car Body (Bottom)
+    s.setTranslation(0.0f, -0.6f, 0.0f);
+    s.setScale(0.3f, 0.05f, 1.0f);
+    s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+    sqr.push_back(s); // sqr[9]
+
+    s = Square(); // Car Body (Above)
+    s.setTranslation(-0.03f, -0.5f, 0.0f);
+    s.setScale(0.15f, 0.05f, 1.0f);
+    s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+    sqr.push_back(s); // sqr[10]
+
+    t = Triangle(); // Car Body (Rear)
+    t.setTranslation(-0.18f, -0.5f, 0.0f);
+    t.setScale(0.05f, 0.05f, 1.0f);
+    t.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+    tri.push_back(t); // tri[2]
+
+    t = Triangle(); // Car Body (Front)
+    t.setTranslation(0.12f, -0.5f, 0.0f);
+    t.setScale(0.05f, 0.05f, 1.0f);
+    t.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+    tri.push_back(t); // tri[3]
+
+
+
+    s = Square(); // Car Window
+    s.setTranslation(-0.03f, -0.5f, 0.0f);
+    s.setScale(0.13f, 0.03f, 1.0f);
+    s.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+    sqr.push_back(s); // sqr[11]
+
+    t = Triangle(); // Car Window (Rear)
+    t.setTranslation(-0.16f, -0.5f, 0.0f);
+    t.setScale(0.03f, 0.03f, 1.0f);
+    t.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+    tri.push_back(t); // tri[4]
+
+    t = Triangle(); // Car Window (Front)
+    t.setTranslation(0.1f, -0.5f, 0.0f);
+    t.setScale(0.03f, 0.03f, 1.0f);
+    t.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+    tri.push_back(t); // tri[5]
+
+    s = Square(); // Car Body (Window Divider)
+    s.setTranslation(-0.03f, -0.5f, 0.0f);
+    s.setScale(0.015f, 0.03f, 1.0f);
+    s.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+    sqr.push_back(s); // sqr[12]
+
+
+
+    d = Dodecagon(); // Rear Wheel
+    d.setTranslation(-0.2f, -0.65f, 0.0f);
+    d.setScale(0.05f, 0.05f, 1.0f);
+    d.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+    dod.push_back(d); // dod[1]
+
+    d = Dodecagon(); // Front Wheel
+    d.setTranslation(0.2f, -0.65f, 0.0f);
+    d.setScale(0.05f, 0.05f, 1.0f);
+    d.setColor(0.25f, 0.25f, 0.25f, 1.0f); // Black
+    dod.push_back(d); // dod[2]
+
+    d = Dodecagon(); // Rear Wheel Rim
+    d.setTranslation(-0.2f, -0.65f, 0.0f);
+    d.setScale(0.025f, 0.025f, 1.0f);
+    d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+    dod.push_back(d); // dod[3]
+
+    d = Dodecagon(); // Front Wheel Rim
+    d.setTranslation(0.2f, -0.65f, 0.0f);
+    d.setScale(0.025f, 0.025f, 1.0f);
+    d.setColor(0.75f, 0.75f, 0.75f, 1.0f); // Light Gray
+    dod.push_back(d); // dod[4]
+    /* Draw Car */
+
 
 
     string vertexString = readFile("vertex.vert");
@@ -215,25 +410,92 @@ int main(void)
     GLint uColor = glGetUniformLocation(program, "uColor");
     GLint uMat4x4 = glGetUniformLocation(program, "transformationMat4x4");
 
-    Shape* shape;
-
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0.0f, 0.05f, 0.6f, 1.0f);
 
         glUseProgram(program);
 
-        // Draw
-        for (int i = 0; i < shapes.size(); i++)
+        /* Draw here */
+        for (int i = 0; i < sqr.size(); i++) // All Square
         {
-            shape = shapes.at(i);
+            glUniform4fv(uColor, 1, &sqr[i].getColor()[0]);
+            glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &sqr[i].getTransformationMat4x4()[0][0]);
+            sqr[i].draw();
+        }
 
-            glUniform4fv(uColor, 1, &(shape->getColor()[0]));
-            glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &(shape->getTransformationMat4x4()[0][0]));
+        for (int i = 0; i < tri.size(); i++) // All Triangle
+        {
+            glUniform4fv(uColor, 1, &tri[i].getColor()[0]);
+            glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &tri[i].getTransformationMat4x4()[0][0]);
+            tri[i].draw();
+        }
 
-            shapes.at(i)->draw();
+        /* Draw Windmill Blade Separate After The Windmill Tower Rendered */
+        glUniform4fv(uColor, 1, &sqr[6].getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &sqr[6].getTransformationMat4x4()[0][0]);
+        sqr[6].draw();
+
+        glUniform4fv(uColor, 1, &sqr[7].getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &sqr[7].getTransformationMat4x4()[0][0]);
+        sqr[7].draw();
+
+        glUniform4fv(uColor, 1, &sqr[8].getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &sqr[8].getTransformationMat4x4()[0][0]);
+        sqr[8].draw();
+        /* Draw Windmill Blade Separate After The Windmill Tower Rendered */
+
+        for (int i = 0; i < dod.size(); i++) // All Dodecagon
+        {
+            glUniform4fv(uColor, 1, &dod[i].getColor()[0]);
+            glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &dod[i].getTransformationMat4x4()[0][0]);
+            dod[i].draw();
+        }
+
+        for (int i = 0; i < str.size(); i++) // All Star
+        {
+            glUniform4fv(uColor, 1, &str[i].getColor()[0]);
+            glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &str[i].getTransformationMat4x4()[0][0]);
+            str[i].draw();
+        }
+
+        currentTime = glfwGetTime();
+        deltaTime   = currentTime - lastTime;
+        lastTime    = currentTime;
+
+        if (glfwGetTime() - timer > 1.0)
+        {
+            timer += 0.1;
+
+            s = Square(); // Windmill Blade Top
+            s.setTranslation(-0.3f, 0.46f, 0.0f);
+            s.setRotation(degToRad(-30 * timer), 0.0f, 0.0f, 1.0f);
+            s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+            s.setScale(0.04f, 0.5f, 1.0f);
+            s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+            s.setScale(0.2f, 0.2f, 1.0f);
+            sqr[6] = s;
+
+            s = Square(); // Windmill Blade Right
+            s.setTranslation(-0.3, 0.46f, 0.0f);
+            s.setRotation(degToRad(-120 + (-30 * timer)), 0.0f, 0.0f, 1.0f);
+            s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+            s.setScale(0.04f, 0.5f, 1.0f);
+            s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+            s.setScale(0.2f, 0.2f, 1.0f);
+            sqr[7] = s;
+
+            s = Square(); // Windmill Blade Left
+            s.setTranslation(-0.3, 0.46f, 0.0f);
+            s.setRotation(degToRad(-240 + (-30 * timer)), 0.0f, 0.0f, 1.0f);
+            s.setTranslation(0.0f, 0.5f * 0.2f, 0.0f);
+            s.setScale(0.04f, 0.5f, 1.0f);
+            s.setColor(0.9f, 0.9f, 0.9f, 1.0f); // White Gray
+            s.setScale(0.2f, 0.2f, 1.0f);
+            sqr[8] = s;
         }
 
         /* Swap front and back buffers */
