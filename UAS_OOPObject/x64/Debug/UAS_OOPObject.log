@@ -1,5 +1,9 @@
 ﻿  UAS_OOPObject.cpp
-E:\4. Programming\VS Clone GitHub Repository\KGV_UAS_Turing-A\UAS_OOPObject\UAS_OOPObject.cpp(36,34): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+E:\4. Programming\VS Clone GitHub Repository\KGV_UAS_Turing-A\UAS_OOPObject\UAS_OOPObject.cpp(45,34): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+E:\4. Programming\VS Clone GitHub Repository\KGV_UAS_Turing-A\UAS_OOPObject\UAS_OOPObject.cpp(461,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\4. Programming\VS Clone GitHub Repository\KGV_UAS_Turing-A\UAS_OOPObject\UAS_OOPObject.cpp(467,25): warning C4305: '+=': truncation from 'double' to 'float'
+E:\4. Programming\VS Clone GitHub Repository\KGV_UAS_Turing-A\UAS_OOPObject\UAS_OOPObject.cpp(479,47): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\4. Programming\VS Clone GitHub Repository\KGV_UAS_Turing-A\UAS_OOPObject\UAS_OOPObject.cpp(488,47): warning C4305: 'argument': truncation from 'double' to 'float'
 glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'E:\4. Programming\VS Clone GitHub Repository\KGV_UAS_Turing-A\UAS_OOPObject\x64\Debug\vc120.pdb'; linking object as if no debug info
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
