@@ -26,19 +26,15 @@ float carMOV = 0.05f;
 float carX   = 0.0f;
 float carY   = 0.0f;
 
+float currentTime = 0.0f;
+float deltaTime   = 0.0f;
+float lastTime    = 0.0f;
+float timer       = 0.0f;
+
 vector<Square>    sqr;
 vector<Triangle>  tri;
 vector<Dodecagon> dod;
 vector<Star>      str;
-
-float currentTime = 0.0f;
-float deltaTime = 0.0f;
-float lastTime = 0.0f;
-float timer = lastTime;
-
-float counter = 0.0f;
-float hour = 0.0f;
-float mod = 1.0f;
 
 float degToRad(float rotationDeg)
 {
