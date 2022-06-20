@@ -308,6 +308,32 @@ int main(void)
     str.push_back(r); // str[2]
 
 
+    
+    s = Square(); // Windmill Base
+    s.setTranslation(-0.3f, -0.17f, 0.0f);
+    s.setScale(0.12f, 0.03f, 0.0f);
+    s.setColor(0.4f, 0.4f, 0.4f, 1.0f); // Dark Gray
+    sqr.push_back(s); // sqr[8]
+
+    s = Square(); // Windmill Tower
+    s.setTranslation(-0.3f, 0.16f, 0.0f);
+    s.setScale(0.02f, 0.3f, 0.0f);
+    s.setColor(0.6f, 0.6f, 0.6f, 1.0f); // Gray
+    sqr.push_back(s); // sqr[9]
+    
+    t = Triangle(); // Windmill Tower Left
+    t.setTranslation(-0.32f, 0.16f, 0.0f);
+    t.setScale(0.02f, 0.3f, 1.0f);
+    t.setColor(0.6f, 0.6f, 0.6f, 1.0f); // Gray
+    tri.push_back(t); // tri[4]
+
+    t = Triangle(); // Windmill Tower Right
+    t.setTranslation(-0.28f, 0.16f, 0.0f);
+    t.setScale(0.02f, 0.3f, 1.0f);
+    t.setColor(0.6f, 0.6f, 0.6f, 1.0f); // Gray
+    tri.push_back(t); // tri[5]
+    
+
 
     string vertexString = readFile("vertex.vert");
     string fragmentString = readFile("fragment.frag");
