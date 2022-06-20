@@ -22,9 +22,22 @@
 
 using namespace std;
 
+float carX = 0.0f;
+float carY = 0.0f;
+
 float degToRad(float rotationDeg)
 {
     return rotationDeg * 3.14159 / 180;
+}
+
+// Input Handler
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_UP && action == GLFW_PRESS)
+    {
+        carY += 0.01f;
+        cout << "Car Up = " << carY << "\n";
+    }
 }
 
 int main(void)
@@ -46,44 +59,41 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
+    glfwSetKeyCallback(window, keyCallback);
+
     GLenum err = glewInit();
 
-    Square s1; // Sky
-    s1.setTranslation(0.0f, 0.4f, 0.0f);
-    s1.setScale(1.0f, 0.6f, 1.0f);
-    s1.setColor(0.0f, 0.05f, 0.6f, 1.0f); // Dark Blue
+    Square s1; // Grass
+    s1.setTranslation(0.0f, -0.6f, 0.0f);
+    s1.setScale(1.0f, 0.4f, 1.0f);
+    s1.setColor(0.0f, 0.85f, 0.05f, 1.0f); // Green
 
-    Square s2; // Grass
+    Square s2; // Road
     s2.setTranslation(0.0f, -0.6f, 0.0f);
-    s2.setScale(1.0f, 0.4f, 1.0f);
-    s2.setColor(0.0f, 0.85f, 0.05f, 1.0f); // Green
+    s2.setScale(1.0f, 0.3f, 1.0f);
+    s2.setColor(0.5f, 0.5f, 0.5f, 1.0f); // Gray
 
-    Square s3; // Road
-    s3.setTranslation(0.0f, -0.6f, 0.0f);
-    s3.setScale(1.0f, 0.3f, 1.0f);
-    s3.setColor(0.5f, 0.5f, 0.5f, 1.0f); // Gray
+    Square s3; // Road Strip Top
+    s3.setTranslation(0.0f, -0.35f, 0.0f);
+    s3.setScale(1.0f, 0.01f, 1.0f);
+    s3.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
 
-    Square s4; // Road Strip Top
-    s4.setTranslation(0.0f, -0.35f, 0.0f);
+    Square s4; // Road Strip Bottom
+    s4.setTranslation(0.0f, -0.85f, 0.0f);
     s4.setScale(1.0f, 0.01f, 1.0f);
     s4.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
 
-    Square s5; // Road Strip Bottom
-    s5.setTranslation(0.0f, -0.85f, 0.0f);
-    s5.setScale(1.0f, 0.01f, 1.0f);
-    s5.setColor(1.0f, 1.0f, 1.0f, 1.0f); // White
 
 
+    Square s5; // Car Body (Bottom)
+    s5.setTranslation(0.0f, -0.6f, 0.0f);
+    s5.setScale(0.3f, 0.05f, 1.0f);
+    s5.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
 
-    Square s6; // Car Body (Bottom)
-    s6.setTranslation(0.0f, -0.6f, 0.0f);
-    s6.setScale(0.3f, 0.05f, 1.0f);
+    Square s6; // Car Body (Above)
+    s6.setTranslation(-0.03f, -0.5f, 0.0f);
+    s6.setScale(0.15f, 0.05f, 1.0f);
     s6.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
-
-    Square s7; // Car Body (Above)
-    s7.setTranslation(-0.03f, -0.5f, 0.0f);
-    s7.setScale(0.15f, 0.05f, 1.0f);
-    s7.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
 
     Triangle t1; // Car Body (Rear)
     t1.setTranslation(-0.18f, -0.5f, 0.0f);
@@ -97,10 +107,10 @@ int main(void)
 
 
 
-    Square s8; // Car Window
-    s8.setTranslation(-0.03f, -0.5f, 0.0f);
-    s8.setScale(0.13f, 0.03f, 1.0f);
-    s8.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
+    Square s7; // Car Window
+    s7.setTranslation(-0.03f, -0.5f, 0.0f);
+    s7.setScale(0.13f, 0.03f, 1.0f);
+    s7.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
 
     Triangle t3; // Car Window (Rear)
     t3.setTranslation(-0.16f, -0.5f, 0.0f);
@@ -112,10 +122,10 @@ int main(void)
     t4.setScale(0.03f, 0.03f, 1.0f);
     t4.setColor(0.5f, 1.0f, 1.0f, 1.0f); // Light Cyan
 
-    Square s9; // Car Body (Window Divider)
-    s9.setTranslation(-0.03f, -0.5f, 0.0f);
-    s9.setScale(0.015f, 0.03f, 1.0f);
-    s9.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
+    Square s8; // Car Body (Window Divider)
+    s8.setTranslation(-0.03f, -0.5f, 0.0f);
+    s8.setScale(0.015f, 0.03f, 1.0f);
+    s8.setColor(0.9f, 0.1f, 0.0f, 1.0f); // Red
 
 
 
@@ -141,18 +151,18 @@ int main(void)
 
 
 
-    Star r1;
+    Star r1; // Bintang
     r1.setTranslation(-0.4f, 0.8f, 0.0f);
     r1.setRotation(degToRad(20.0f), 0.0f, 0.0f, 1.0f);
     r1.setScale(0.05f, 0.05f, 1.0f);
     r1.setColor(1.0f, 0.8f, 0.0f, 1.0f);
 
-    Star r2;
+    Star r2; // Bintang
     r2.setTranslation(0.5f, 0.6f, 0.0f);
     r2.setScale(0.02f, 0.02f, 1.0f);
     r2.setColor(1.0f, 0.8f, 0.0f, 1.0f);
 
-    Star r3;
+    Star r3; // Bintang
     r3.setTranslation(0.7f, 0.7f, 0.0f);
     r3.setRotation(degToRad(-10.0f), 0.0f, 0.0f, 1.0f);
     r3.setScale(0.03f, 0.03f, 1.0f);
@@ -165,17 +175,16 @@ int main(void)
     shapes.push_back(&s2);
     shapes.push_back(&s3);
     shapes.push_back(&s4);
-    shapes.push_back(&s5);
 
+    shapes.push_back(&s5);
     shapes.push_back(&s6);
-    shapes.push_back(&s7);
     shapes.push_back(&t1);
     shapes.push_back(&t2);
 
-    shapes.push_back(&s8);
+    shapes.push_back(&s7);
     shapes.push_back(&t3);
     shapes.push_back(&t4);
-    shapes.push_back(&s9);
+    shapes.push_back(&s8);
 
     shapes.push_back(&d1);
     shapes.push_back(&d2);
@@ -185,7 +194,7 @@ int main(void)
     shapes.push_back(&r1);
     shapes.push_back(&r2);
     shapes.push_back(&r3);
-    
+
 
 
     string vertexString = readFile("vertex.vert");
@@ -222,6 +231,7 @@ int main(void)
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0.0f, 0.05f, 0.6f, 1.0f);
 
         glUseProgram(program);
 
