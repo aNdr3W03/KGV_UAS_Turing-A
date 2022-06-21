@@ -34,3 +34,14 @@
 > 
 > **Metode dan Batas Waktu Pengumpulan**
 > Video diunggah ke Youtube. Link dikumpulkan via e-Learning dengan menggunakan _activity_ yang telah ditentukan. Adapun batas waktu pengumpulan adalah **Selasa, 20 Juni 2022 pukul 23.59 WIB**.
+
+# 
+# Tugas 3 KGV Kelompok Turing-A
+**UAS_OOPObject**
+> - Project ini berupa program visual untuk menampilkan gambaran mobil, kincir angin, dan bintang yang dibentuk dari beberapa objek persegi, segitiga, segi dua belas (_dodecagon_), dan bintang (_star_). Objek-objek tersebut ditranslasi atau perpindahan, dirotasi, dan diskalasi atau dilatasi sehingga membentuk sebuah rumah.
+> - Folder ini merupakan project/solution **Console Application** Visual Studio, sehingga bisa di-_compile_ dan dijalankan dengan menggunakan Microsoft Visual Studio.
+> - Dalam folder ini terdapat file Program `.sln` yang dapat dibuka dengan menggunakan Visual Studio.
+> - Sedangkan jika hanya ingin melihat _source code_-nya akan dijelaskan di bawah.
+> 
+> **Multiple Objects OOP**  
+> ![Screenshot UAS KGV](screenshot/UAS_OOPObject.png)
